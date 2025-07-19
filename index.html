@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>QuickThumb – YouTube Thumbnail Extractor</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Retro terminal-style YouTube thumbnail grabber" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { mono: ['Share Tech Mono', 'SFMono-Regular', 'Consolas', 'Courier New', 'monospace'] },
+                    colors: {
+                        retro: {
+                            bg: '#0d1117',
+                            fg: '#39ff14',
+                            accent: '#ffb000',
+                            error: '#ff2e2e',
+                            border: '#39ff1433'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body class="bg-retro-bg text-retro-fg font-mono flex flex-col items-center min-h-screen p-4">
+    <header class="my-8 text-center">
+        <pre class="ascii-art text-retro-fg leading-tight mb-4 overflow-x-auto">
+ ██████╗ ██╗   ██╗██╗ ██████╗██╗  ██╗████████╗██╗  ██╗██╗   ██╗███╗   ███╗██████╗ 
+██╔═══██╗██║   ██║██║██╔════╝██║ ██╔╝╚══██╔══╝██║  ██║██║   ██║████╗ ████║██╔══██╗
+██║   ██║██║   ██║██║██║     █████╔╝    ██║   ███████║██║   ██║██╔████╔██║██████╔╝
+██║▄▄ ██║██║   ██║██║██║     ██╔═██╗    ██║   ██╔══██║██║   ██║██║╚██╔╝██║██╔══██╗
+╚██████╔╝╚██████╔╝██║╚██████╗██║  ██╗   ██║   ██║  ██║╚██████╔╝██║ ╚═╝ ██║██████╔╝
+ ╚══▀▀═╝  ╚═════╝ ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═════╝ 
+    </pre>
+        <p class="text-retro-accent text-sm">[TERMINAL] YouTube thumbnail extractor v1.0</p>
+        <p class="text-retro-fg text-xs mt-1">>>> Paste link, grab thumb, profit &lt;&lt;&lt;</p>
+    </header>
+
+    <main class="w-full max-w-lg space-y-4">
+        <div class="border border-retro-border p-4 bg-retro-bg">
+            <label for="url" class="block text-retro-accent text-sm mb-2">$ INPUT_URL:</label>
+            <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                class="w-full px-3 py-2 bg-transparent border border-retro-border focus:border-retro-accent focus:shadow-glow font-mono text-retro-fg placeholder-gray-500" />
+
+            <button id="fetchBtn" disabled
+                class="mt-3 w-full bg-transparent border border-retro-border py-2 text-retro-fg font-mono disabled:opacity-50 disabled:cursor-not-allowed hover:bg-retro-fg hover:text-retro-bg hover:shadow-glow transition-all">
+                [EXECUTE] FETCH_THUMBNAIL
+            </button>
+        </div>
+
+        <div id="result" class="hidden border border-retro-border p-4 bg-retro-bg">
+            <div class="text-center">
+                <p class="text-retro-accent text-sm mb-3">>>> THUMBNAIL_ACQUIRED &lt;&lt;&lt;</p>
+                <img id="thumb" alt="Thumbnail" class="mx-auto border border-retro-border shadow-glow max-w-full" />
+
+                <div class="mt-4 grid grid-cols-2 gap-2">
+                    <button id="copyBtn"
+                        class="bg-transparent border border-retro-border py-2 text-retro-fg font-mono hover:bg-retro-accent hover:text-retro-bg hover:shadow-glow transition-all">
+                        [COPY] URL
+                    </button>
+                    <button id="downloadBtn"
+                        class="bg-transparent border border-retro-border py-2 text-retro-fg font-mono hover:bg-retro-fg hover:text-retro-bg hover:shadow-glow transition-all">
+                        [SAVE] FILE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-4 text-xs text-gray-500 text-center">
+        <p>>>> SYSTEM_STATUS: ONLINE &lt;&lt;&lt;</p>
+        <p class="mt-1">© 2025 QuickThumb // Open Source Terminal</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

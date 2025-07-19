@@ -1,0 +1,143 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# .cursorrules.theme – Retro Terminal Theme
+# Drop-in retro CRT / terminal styling for QuickThumb.
+
+## Palette
+black      #0d1117  
+green      #39ff14  
+amber      #ffb000  
+red        #ff2e2e  
+darkGray   #161b22  
+
+## Fonts
+- Primary: `font-mono` (Tailwind)  
+- Web-safe fallback: "SFMono", "Consolas", "Courier New"
+
+## CSS Variables (copy into style.css)
+```css
+:root {
+  --bg: #0d1117;
+  --fg: #39ff14;
+  --accent: #ffb000;
+  --error: #ff2e2e;
+  --border: #39ff1433;
+}
+
+## QuickThumb style.css overrides
+```css
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Share Tech Mono', monospace;
+  text-shadow: 0 0 4px var(--fg);
+}
+
+input, button, a {
+  font-family: inherit;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+button:enabled:hover {
+  background: var(--fg);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+#thumb {
+  border: 1px dashed var(--border);
+  filter: contrast(1.1) brightness(1.05);
+}
+
+/* CRT scanline effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,255,0,0.03),
+    rgba(0,255,0,0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+```
+## Tailwind quick swap:
+```html
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { mono: ['Share Tech Mono', 'monospace'] },
+        colors: {
+          retro: {
+            bg: '#0d1117',
+            fg: '#39ff14',
+            accent: '#ffb000',
+            error: '#ff2e2e',
+            border: '#39ff1433'
+          }
+        }
+      }
+    }
+  }
+</script>
+```
+## Toast Styling (overrid via js)
+```js
+// After Toastify is loaded
+const style = document.createElement('style');
+style.textContent = `
+  .toastify {
+    font-family: 'Share Tech Mono', monospace !important;
+    background: var(--bg) !important;
+    color: var(--fg) !important;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    text-shadow: 0 0 4px var(--fg);
+  }
+`;
+document.head.appendChild(style);
+```
+
+## ASCII Header
+```html
+<pre class="text-green-400 text-center text-sm">
+________        .__        __   ___________.__                 ___.    
+\_____  \  __ __|__| ____ |  | _\__    ___/|  |__  __ __  _____\_ |__  
+ /  / \  \|  |  \  |/ ___\|  |/ / |    |   |  |  \|  |  \/     \| __ \ 
+/   \_/.  \  |  /  \  \___|    <  |    |   |   Y  \  |  /  Y Y  \ \_\ \
+\_____\ \_/____/|__|\___  >__|_ \ |____|   |___|  /____/|__|_|  /___  /
+       \__>             \/     \/               \/            \/    \/ 
+</pre>
+```
+## Done Checklist:
+- [ ] All text use monospace font
+- [ ] Green/amber/red glow colors
+- [ ] Scanline effect visible
+- [ ] Toast follows same retro style
+- [ ] Button shows inverse colors on hover
+
+
+
+
+

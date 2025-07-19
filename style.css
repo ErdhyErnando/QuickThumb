@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono:wght@400&display=swap');
+
+:root {
+    --bg: #0d1117;
+    --fg: #39ff14;
+    --accent: #ffb000;
+    --error: #ff2e2e;
+    --border: #39ff1433;
+    --glow: 0 0 8px var(--accent);
+}
+
+/* Base styling */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Share Tech Mono', 'SFMono-Regular', 'Consolas', 'Courier New', monospace;
+    text-shadow: 0 0 3px var(--fg);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ASCII Art responsive styling */
+.ascii-art {
+    font-size: 14px;
+    line-height: 1.1;
+    white-space: pre;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* Input and button styling */
+input,
+button,
+a {
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: var(--glow);
+    text-shadow: 0 0 3px var(--fg);
+}
+
+button:enabled:hover,
+a:hover {
+    box-shadow: var(--glow);
+    text-shadow: none;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Thumbnail styling */
+#thumb {
+    filter: contrast(1.1) brightness(1.05);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+/* Custom utility classes */
+.shadow-glow {
+    box-shadow: var(--glow) !important;
+}
+
+/* CRT scanline effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg,
+            rgba(57, 255, 20, 0.03),
+            rgba(57, 255, 20, 0.03) 1px,
+            transparent 1px,
+            transparent 2px);
+    z-index: 9999;
+    mix-blend-mode: screen;
+}
+
+/* Terminal flicker effect */
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.98;
+    }
+}
+
+body {
+    animation: flicker 0.15s linear infinite;
+}
+
+/* Toast styling overrides */
+.toastify {
+    font-family: 'Share Tech Mono', monospace !important;
+    background: var(--bg) !important;
+    color: var(--fg) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    text-shadow: 0 0 3px var(--fg) !important;
+    box-shadow: var(--glow) !important;
+}
+
+/* Success toast */
+.toast-success {
+    background: var(--bg) !important;
+    color: var(--fg) !important;
+    border-color: var(--fg) !important;
+}
+
+/* Error toast */
+.toast-error {
+    background: var(--bg) !important;
+    color: var(--error) !important;
+    border-color: var(--error) !important;
+    text-shadow: 0 0 3px var(--error) !important;
+}
+
+/* Info/loading toast */
+.toast-info {
+    background: var(--bg) !important;
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    text-shadow: 0 0 3px var(--accent) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .ascii-art {
+        font-size: 10px;
+        line-height: 1.05;
+    }
+}
+
+@media (max-width: 640px) {
+    .ascii-art {
+        font-size: 8px;
+        line-height: 1;
+    }
+
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    /* Better toast positioning on mobile */
+    .toastify {
+        right: 10px !important;
+        bottom: 10px !important;
+        max-width: calc(100vw - 20px) !important;
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .ascii-art {
+        font-size: 6px;
+        line-height: 0.9;
+    }
+
+    body {
+        padding: 2px;
+    }
+
+    header {
+        margin: 16px 0;
+    }
+}
+
+/* Extra small screens - hide ASCII art or show simplified version */
+@media (max-width: 380px) {
+    .ascii-art {
+        display: none;
+    }
+
+    header::before {
+        content: '>>> QUICKTHUMB <<<';
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--fg);
+        text-shadow: 0 0 5px var(--fg);
+        margin-bottom: 16px;
+    }
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
